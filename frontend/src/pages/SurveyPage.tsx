@@ -198,11 +198,7 @@ const SurveyPage: React.FC = () => {
               <button
                 key={index}
                 onClick={() => handleSelectOption(option.value)}
-                className={`w-full p-4 rounded-xl border-2 transition-all duration-200 text-left ${
-                  currentValue === option.value
-                    ? 'border-blue-500 bg-blue-50 text-blue-900'
-                    : 'border-gray-200 hover:border-blue-300 bg-white'
-                }`}
+                className="w-full p-4 rounded-xl border-2 border-gray-200 hover:border-blue-300 bg-white transition-all duration-200 text-left"
               >
                 <span className="font-medium">{option.label}</span>
               </button>
