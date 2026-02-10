@@ -76,6 +76,28 @@ const ResultPage: React.FC = () => {
     navigate('/');
   };
 
+  // 월 지출 금액 계산
+  const calculateMonthlyCost = () => {
+    const monthlyRent = userProfile.monthlyRent || 0;
+    const deposit = userProfile.rentDeposit || 0;
+    const transitUsage = userProfile.transitUsageCount || 0;
+
+    // 보증금 월 환산액 (5% 연이자 / 12개월)
+    const depositMonthly = Math.floor((deposit * 0.05) / 12);
+
+    // 대중교통비 추정 (회당 평균 1,500원)
+    const transitCost = transitUsage * 1500;
+
+    const totalMonthlyCost = monthlyRent + depositMonthly + transitCost;
+
+    return {
+      total: totalMonthlyCost,
+      rent: monthlyRent,
+      deposit: depositMonthly,
+      transit: transitCost,
+    };
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -86,6 +108,9 @@ const ResultPage: React.FC = () => {
       </div>
     );
   }
+
+  const monthlyCost = calculateMonthlyCost();
+  const totalCostInManWon = Math.floor(monthlyCost.total / 10000);
 
   return (
     <div className="min-h-screen bg-gray-50 pb-20">
@@ -105,6 +130,52 @@ const ResultPage: React.FC = () => {
           )}
         </div>
       </div>
+
+      {/* Monthly Cost Alert */}
+      {monthlyCost.total > 0 && (
+        <div className="max-w-2xl mx-auto px-4 mb-6">
+          <div className="bg-gradient-to-r from-red-50 to-orange-50 border-2 border-red-200 rounded-2xl p-6 shadow-sm">
+            <div className="flex items-center gap-3 mb-3">
+              <span className="text-3xl">⚠️</span>
+              <div>
+                <h3 className="text-lg font-bold text-red-900">
+                  당신은 이번 달 이미 <span className="text-2xl text-red-600">{totalCostInManWon}만 원</span>을 더 냈습니다
+                </h3>
+                <p className="text-sm text-red-700 mt-1">
+                  아래 정책을 활용하면 매달 부담을 줄일 수 있어요!
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-3 mt-4 pt-4 border-t border-red-200">
+              {monthlyCost.rent > 0 && (
+                <div className="text-center">
+                  <p className="text-xs text-red-600 mb-1">월세</p>
+                  <p className="text-sm font-bold text-red-900">
+                    {Math.floor(monthlyCost.rent / 10000)}만원
+                  </p>
+                </div>
+              )}
+              {monthlyCost.deposit > 0 && (
+                <div className="text-center">
+                  <p className="text-xs text-red-600 mb-1">보증금 이자</p>
+                  <p className="text-sm font-bold text-red-900">
+                    {Math.floor(monthlyCost.deposit / 10000)}만원
+                  </p>
+                </div>
+              )}
+              {monthlyCost.transit > 0 && (
+                <div className="text-center">
+                  <p className="text-xs text-red-600 mb-1">교통비</p>
+                  <p className="text-sm font-bold text-red-900">
+                    {Math.floor(monthlyCost.transit / 10000)}만원
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Results */}
       <div className="max-w-2xl mx-auto px-4">
