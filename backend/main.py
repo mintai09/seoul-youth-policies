@@ -219,7 +219,15 @@ class PolicyRecommender:
 
 # 추천 엔진 초기화
 import os
-rules_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "rules.yaml")
+
+# Docker 환경에서는 /app/rules.yaml, 로컬에서는 상대 경로
+if os.path.exists("/app/rules.yaml"):
+    rules_path = "/app/rules.yaml"
+elif os.path.exists("rules.yaml"):
+    rules_path = "rules.yaml"
+else:
+    rules_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "rules.yaml")
+
 recommender = PolicyRecommender(rules_path=rules_path)
 
 @app.get("/")
