@@ -1,8 +1,4 @@
-# fly.toml app configuration file generated for seoul-youth-policies-api-green-tree-894 on 2026-02-10T16:16:05+09:00
-#
-# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
-#
-
+# fly.toml - 간단한 설정 (헬스체크 없음)
 app = 'seoul-youth-policies-api-green-tree-894'
 primary_region = 'nrt'
 
@@ -18,10 +14,8 @@ primary_region = 'nrt'
   auto_stop_machines = 'stop'
   auto_start_machines = true
   min_machines_running = 0
-  processes = ['app']
 
 [[vm]]
   memory = '256mb'
   cpu_kind = 'shared'
   cpus = 1
-  memory_mb = 256
