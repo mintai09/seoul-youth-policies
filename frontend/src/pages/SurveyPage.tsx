@@ -131,7 +131,7 @@ const questions: Question[] = [
 
 const SurveyPage: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const { userProfile, updateProfile } = useStore();
+  const { updateProfile } = useStore();
   const navigate = useNavigate();
 
   const currentQuestion = questions[currentIndex];
