@@ -161,8 +161,6 @@ const SurveyPage: React.FC = () => {
     }, 300);
   };
 
-  const currentValue = userProfile[currentQuestion.key as keyof typeof userProfile];
-
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Progress bar */}
