@@ -1,0 +1,140 @@
+- id: YOUTH_RENT_SUBSIDY
+  name: 서울 청년 월세 지원
+  description: 무주택 청년 1인가구 대상 최대 20만원 월세 12개월 지원
+  eligibility:
+    age_range: [19, 39]
+    seoul_resident: true
+    housing_status: "renter"
+    home_owner: false
+    living_with_parents: false
+    deposit_max: 80000000
+    rent_max: 600000
+    total_rent_limit: 930000
+    income_type: "individual_or_household"
+    income_threshold_type: "median_income"
+    income_threshold_percent: 150
+    duplicate_programs_blocked:
+      - YOUTH_RENT_ONETIME
+  benefit: "월 최대 20만원, 최대 12개월 지원"
+
+- id: YOUTH_RENT_ONETIME
+  name: 청년월세 한시 특별지원
+  description: 중앙정부 월세 20만원 x 12개월 한시 지원 (종료됨)
+  eligibility:
+    age_range: [19, 34]
+    seoul_resident: true
+    housing_status: "renter"
+    home_owner: false
+    income_type: "individual_and_parent"
+    income_thresholds:
+      self: { threshold_type: "median_income", percent: 60 }
+      parent: { threshold_type: "median_income", percent: 100 }
+    program_status: "ended"
+  benefit: "월 20만원, 최대 12개월 (2023년 종료)"
+
+- id: MOVE_SUPPORT
+  name: 청년 부동산 중개보수 및 이사비 지원
+  description: 서울시 이사 청년에게 최대 40만원 실비 지원
+  eligibility:
+    age_range: [19, 39]
+    seoul_resident: true
+    move_after_date: "2022-01-01"
+    home_owner: false
+    deposit_max: 200000000
+    income_threshold_type: "median_income"
+    income_threshold_percent: 150
+    exclusions:
+      - received_similar_support
+      - basic_living_recipient
+  benefit: "최대 40만원 실비 (중개비+이사비), 생애 1회"
+
+- id: DEPOSIT_INTEREST_SUBSIDY
+  name: 청년 임차보증금 이자지원
+  description: 전세 보증금 대출 이자 연 2% 보전
+  eligibility:
+    age_range: [19, 39]
+    seoul_resident: true
+    home_owner: false
+    household_type: "single"
+    deposit_max: 300000000
+    rent_max: 700000
+    employment:
+      current_employed: true
+      or_past_employment_min_years: 1
+      or_parents_income_max: 100000000
+    income_type: "individual"
+    income_threshold_monthly: 3330000
+    student: false
+  benefit: "전세대출 이자 연 2% 지원, 최대 8년"
+
+- id: YOUTH_ALLOWANCE
+  name: 서울 청년수당
+  description: 미취업 청년에게 월 50만원 활동지원금
+  eligibility:
+    age_range: [19, 34]
+    seoul_resident: true
+    employment_status: ["unemployed", "short_term"]
+    student: false
+    income_threshold_type: "median_income"
+    income_threshold_percent: 150
+    duplicate_programs_blocked:
+      - EMPLOYMENT_SUPPORT
+  benefit: "월 50만원, 최대 6개월 (총 300만원)"
+
+- id: EMPLOYMENT_SUPPORT
+  name: 국민취업지원제도
+  description: 구직 촉진 수당 월 50~60만원, 구직활동 지원
+  eligibility:
+    age_range: [18, 34]
+    employment_status: "unemployed"
+    income_threshold_type: "median_income"
+    income_threshold_percent: 120
+    assets_max: 500000000
+    willing_to_work: true
+  benefit: "월 50~60만원, 최대 6개월 + 취업지원"
+
+- id: TRANSPORT_SUPPORT_SEOUL
+  name: 서울 청년 대중교통비 지원
+  description: 월 대중교통 44회 이상 이용 시 월 1만원 환급
+  eligibility:
+    age_range: [19, 34]
+    seoul_resident: true
+    transit_rides_monthly_min: 44
+    card_registered: true
+  benefit: "월 최대 1만원 환급, 연 최대 12만원"
+
+- id: KPASS_YOUTH
+  name: K-PASS 청년 교통비 환급
+  description: 월 15회 이상 대중교통 이용 시 30% 환급
+  eligibility:
+    age_range: [19, 34]
+    transit_rides_monthly_min: 15
+    registration_verified: true
+  benefit: "교통비 30% 환급, 월 최대 2만원"
+
+- id: HOPE_SAVING
+  name: 희망두배 청년통장
+  description: 월 10/15만원 저축 시 1:1 매칭 적립
+  eligibility:
+    age_range: [18, 34]
+    seoul_resident: true
+    employment_status: ["short_term", "full_time"]
+    income_monthly_max: 2550000
+    income_threshold_type: "median_income"
+    income_threshold_percent: 100
+    parents_income_max: 100000000
+    parents_assets_max: 900000000
+    basic_welfare_recipient: false
+  benefit: "3년간 매월 15만원 저축 시 최대 1,080만원 수령"
+
+- id: FUTURE_SAVING
+  name: 청년내일저축계좌
+  description: 3년간 저축 시 정부 매칭 지원
+  eligibility:
+    age_range: [19, 34]
+    employment_status: ["short_term", "full_time"]
+    income_threshold_type: "median_income"
+    income_threshold_percent: 100
+    income_range: [500000, 2080000]
+    assets_max: 350000000
+  benefit: "월 10만원 저축 시 최소 720~1,440만원 수령"
