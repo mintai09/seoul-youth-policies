@@ -6,7 +6,7 @@ import ResultPage from './pages/ResultPage';
 
 function App() {
   return (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
       <Routes>
         <Route path="/" element={<IntroPage />} />
         <Route path="/survey" element={<SurveyPage />} />
